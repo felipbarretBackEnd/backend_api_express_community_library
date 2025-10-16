@@ -14,8 +14,8 @@ db.run(`
 
 //06min 48
 function createUserRepository (newUser) {
-    return new Promise((res, rej) => {
-        const {username, email, password, avatar} = newUser
+    const {username, email, password, avatar} = newUser
+    return new Promise((resolve, reject) => {
         db.run(                                 //09MIN 16
             `
                 INSERT INTO users (username, email, password, avatar)
@@ -24,9 +24,9 @@ function createUserRepository (newUser) {
             [username, email, password, avatar],
             (err) => {
                 if(err) {
-                    rej(err)
+                    reject(err)
                 } else {
-                    res({message: 'User created'})
+                    resolve({id: this.lastID, ...newUser})
                 }
             }
         );
